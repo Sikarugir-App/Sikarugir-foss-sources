@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Creator/Creator.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:Configure/Configure.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ObjectiveC_Extension/ObjectiveC_Extension.xcodeproj">
+   </FileRef>
+</Workspace>

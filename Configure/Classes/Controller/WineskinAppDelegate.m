@@ -199,7 +199,13 @@ NSFileManager *fm;
         }
 
         [esyncCheckBoxButton setEnabled:state];
-        [msyncCheckBoxButton setEnabled:state];
+        
+        if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/d3dmetal_force",self.wswineBundlePath]]) {
+            [msyncCheckBoxButton setEnabled:NO];
+            [msyncCheckBoxButton setState:NO];
+        } else {
+            [msyncCheckBoxButton setEnabled:state];
+        }
 
         if (IS_SYSTEM_MAC_OS_SEQUOIA_OR_SUPERIOR && IsProcessTranslated) {
             [avxCheckBoxButton setEnabled:state];
@@ -713,16 +719,6 @@ NSFileManager *fm;
         [dxmtCheckBoxButton setState:NO];
     }
 
-    // Disable renders for legacy engines
-    if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/lib32on64/wine/ntdll.so",self.wswineBundlePath]] || [fm fileExistsAtPath:[NSString stringWithFormat:@"%@/lib32on64/wine/ntdll.dll.so",self.wswineBundlePath]]) {
-        [dxmtCheckBoxButton setEnabled:NO];
-        [dxmtCheckBoxButton setState:NO];
-        [dxvkCheckBoxButton setEnabled:NO];
-        [dxvkCheckBoxButton setState:NO];
-        [gptkCheckBoxButton setEnabled:NO];
-        [gptkCheckBoxButton setState:NO];
-    }
-
     BOOL validExtension = ![[[extPopUpButton selectedItem] title] isEqualToString:@""];
     [extMinusButton setEnabled:validExtension];
     [extEditButton  setEnabled:validExtension];
@@ -735,10 +731,22 @@ NSFileManager *fm;
     [monoCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_DISABLE_MONO] intValue]];
     [metalhudCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_METAL_HUD] intValue]];
 
-    if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/d3dmetal_force",self.wswineBundlePath]]) {
+    // Disable renders for legacy engines
+    if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/lib32on64/wine/ntdll.so",self.wswineBundlePath]] || [fm fileExistsAtPath:[NSString stringWithFormat:@"%@/lib32on64/wine/ntdll.dll.so",self.wswineBundlePath]]) {
+        [dxmtCheckBoxButton     setEnabled:NO];
+        [dxmtCheckBoxButton     setState:NO];
+        [dxvkCheckBoxButton     setEnabled:NO];
+        [dxvkCheckBoxButton     setState:NO];
+        [gptkCheckBoxButton     setEnabled:NO];
+        [gptkCheckBoxButton     setState:NO];
+        [msyncCheckBoxButton    setEnabled:NO];
+        [msyncCheckBoxButton    setState:NO];
+    } else if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/d3dmetal_force",self.wswineBundlePath]]) {
         [cxmoltenvkCheckBoxButton       setEnabled:NO];
         [fastmathCheckBoxButton         setEnabled:NO];
         [fastmathCheckBoxButton         setState:NO];
+        [msyncCheckBoxButton            setEnabled:NO];
+        [msyncCheckBoxButton            setState:NO];
     } else {
         [cxmoltenvkCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_MOLTENVK_CX] intValue]];
         if ([[self->portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_D3DMETAL] intValue] == 1) {
@@ -747,11 +755,11 @@ NSFileManager *fm;
             [cxmoltenvkCheckBoxButton      setEnabled:YES];
         }
         [fastmathCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_MOLTENVK_FASTMATH] intValue]];
+        [msyncCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_MSYNC] intValue]];
     }
 
     [fntoggleCheckBoxButton       setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ENABLE_FNTOGGLE] intValue]];
     [esyncCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ESYNC] intValue]];
-    [msyncCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_MSYNC] intValue]];
 
     if (IS_SYSTEM_MAC_OS_SEQUOIA_OR_SUPERIOR && IsProcessTranslated) {
         [avxCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ADVERTISE_AVX] intValue]];

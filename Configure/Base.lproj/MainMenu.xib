@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24128" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24128"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -1193,17 +1193,6 @@ Gw
                                                 <action selector="cxmoltenvkButtonPressed:" target="494" id="TyN-PR-UQD"/>
                                             </connections>
                                         </button>
-                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Fn-77-a70">
-                                            <rect key="frame" x="14" y="56" width="610" height="23"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Force advertise AVX capabilities" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="415-8G-i5p">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="avxkButtonPressed:" target="494" id="BIc-Rv-NGP"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -2012,7 +2001,7 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" drawsBackground="NO" id="6bh-ZF-v5b">
                             <rect key="frame" x="1" y="1" width="260" height="69"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="1358">
                                     <rect key="frame" x="0.0" y="0.0" width="260" height="69"/>
@@ -2247,7 +2236,7 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" drawsBackground="NO" id="ig0-LL-WRa">
                             <rect key="frame" x="1" y="1" width="161" height="74"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="1374" propertyAccessControl="none">
                                     <rect key="frame" x="0.0" y="0.0" width="161" height="74"/>
@@ -2380,7 +2369,6 @@ For more information see
                 <outlet property="advancedInstallSoftwareButton" destination="1985" id="2034"/>
                 <outlet property="advancedWindow" destination="680" id="782"/>
                 <outlet property="alwaysMakeLogFilesCheckBoxButton" destination="1923" id="1926"/>
-                <outlet property="avxCheckBoxButton" destination="8Fn-77-a70" id="nv3-JS-EpG"/>
                 <outlet property="busyWindow" destination="859" id="864"/>
                 <outlet property="cEXEBrowseButton" destination="1011" id="1194"/>
                 <outlet property="cEXEIconBrowseButton" destination="1008" id="1199"/>

@@ -207,13 +207,6 @@ NSFileManager *fm;
             [msyncCheckBoxButton setEnabled:state];
         }
 
-        if (IS_SYSTEM_MAC_OS_SEQUOIA_OR_SUPERIOR && IsProcessTranslated) {
-            [avxCheckBoxButton setEnabled:state];
-        } else {
-            [avxCheckBoxButton setEnabled:NO];
-            [avxCheckBoxButton setState:NO];
-        }
-
         // Option does not work above 10.8 so disable it
         if (IS_SYSTEM_MAC_OS_MAVERICKS_OR_SUPERIOR) {
             [disableCPUsCheckBoxButton setEnabled:NO];
@@ -761,13 +754,6 @@ NSFileManager *fm;
     [fntoggleCheckBoxButton       setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ENABLE_FNTOGGLE] intValue]];
     [esyncCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ESYNC] intValue]];
 
-    if (IS_SYSTEM_MAC_OS_SEQUOIA_OR_SUPERIOR && IsProcessTranslated) {
-        [avxCheckBoxButton      setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_ADVERTISE_AVX] intValue]];
-    } else {
-        [avxCheckBoxButton      setEnabled:NO];
-        [avxCheckBoxButton      setState:NO];
-    }
-
     // Option does not work above 10.8 so disable it
     if (IS_SYSTEM_MAC_OS_MAVERICKS_OR_SUPERIOR) {
         [disableCPUsCheckBoxButton        setEnabled:NO];
@@ -1170,12 +1156,6 @@ NSFileManager *fm;
 - (IBAction)cxmoltenvkButtonPressed:(id)sender
 {
     [portManager setPlistObject:@([cxmoltenvkCheckBoxButton state]) forKey:WINESKIN_WRAPPER_PLIST_KEY_MOLTENVK_CX];
-    [portManager synchronizePlist];
-}
-
-- (IBAction)avxkButtonPressed:(id)sender
-{
-    [portManager setPlistObject:@([avxCheckBoxButton state]) forKey:WINESKIN_WRAPPER_PLIST_KEY_ADVERTISE_AVX];
     [portManager synchronizePlist];
 }
 

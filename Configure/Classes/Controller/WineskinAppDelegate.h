@@ -93,7 +93,6 @@
     IBOutlet NSButton *metalhudCheckBoxButton;
     IBOutlet NSButton *fastmathCheckBoxButton;
     IBOutlet NSButton *cxmoltenvkCheckBoxButton;
-    IBOutlet NSButton *avxCheckBoxButton;
 
 	//change engine window
 	IBOutlet NSWindow *changeEngineWindow;
@@ -248,7 +247,6 @@
 - (IBAction)metalhudButtonPressed:(id)sender;
 - (IBAction)fastmathButtonPressed:(id)sender;
 - (IBAction)cxmoltenvkButtonPressed:(id)sender;
-- (IBAction)avxkButtonPressed:(id)sender;
 
 //Winetricks
 - (IBAction)winetricksButtonPressed:(id)sender;

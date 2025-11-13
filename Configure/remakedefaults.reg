@@ -26,7 +26,7 @@ REGEDIT4
 "LeftOptionIsAlt"="Y"
 "RightOptionIsAlt"="Y"
 # Disable high-resoultion scrolling, since wine-1.7.19
-"UsePreciseScrolling"="N"
+#"UsePreciseScrolling"="N"
 # Disable macOS native scalling, since wine-1.9.10
 #"RetinaMode"="Y"
 # Map Command keys(s) as Control, since wine-3.17

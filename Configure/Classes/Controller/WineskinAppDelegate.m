@@ -139,7 +139,7 @@ NSFileManager *fm;
             [dxvkCheckBoxButton setEnabled:state];
         }
 
-        if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR && IsProcessTranslated) {
+        if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR) {
             [dxmtCheckBoxButton setEnabled:state];
         } else {
             [dxmtCheckBoxButton setEnabled:NO];
@@ -699,7 +699,7 @@ NSFileManager *fm;
         [dxvkCheckBoxButton setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_DXVK] intValue]];
     }
 
-    if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR && IsProcessTranslated) {
+    if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR) {
         [dxmtCheckBoxButton setState:[[portManager plistObjectForKey:WINESKIN_WRAPPER_PLIST_KEY_DXMT] intValue]];
     } else {
         [dxmtCheckBoxButton setEnabled:NO];

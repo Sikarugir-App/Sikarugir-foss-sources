@@ -86,7 +86,7 @@
 
 // These are local paths used multiple times during the wrapper creation process that are related with Wineskin only
 #define WINESKIN_LIBRARY_FOLDER             [NSString stringWithFormat:@"%@/Library/Application Support/Sikarugir",NSHomeDirectory()]
-#define WINESKIN_LIBRARY_WRAPPER_FOLDER     [NSString stringWithFormat:@"%@/Wrapper",WINESKIN_LIBRARY_FOLDER]
+#define WINESKIN_LIBRARY_WRAPPER_FOLDER     [NSString stringWithFormat:@"%@/Template",WINESKIN_LIBRARY_FOLDER]
 #define WINESKIN_LIBRARY_ENGINES_FOLDER     [NSString stringWithFormat:@"%@/Engines",WINESKIN_LIBRARY_FOLDER]
 #define WINESKIN_LIBRARY_ENGINE_BASE_FOLDER [NSString stringWithFormat:@"%@/EngineBase",WINESKIN_LIBRARY_FOLDER]
 

@@ -120,7 +120,11 @@ NSFileManager *fm;
         [iconImageView setEditable:state];
         [iconBrowseButton setEnabled:state];
 
+#if defined(__arm64__)
+        if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR) {
+#else
         if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR && IsProcessTranslated) {
+#endif
             if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/d3dmetal_force",self.wswineBundlePath]]) {
                 [gptkCheckBoxButton setEnabled:NO];
                 [gptkCheckBoxButton setState:YES];
@@ -679,7 +683,11 @@ NSFileManager *fm;
 		[extPopUpButton addItemWithTitle:item];
     }
 
+#if defined(__arm64__)
+    if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR) {
+#else
     if (IS_SYSTEM_MAC_OS_SONOMA_OR_SUPERIOR && IsProcessTranslated) {
+#endif
         if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/d3dmetal_force",self.wswineBundlePath]] && [fm fileExistsAtPath:[NSString stringWithFormat:@"%@/lib/wine/x86_64-unix/ntdll.so",self.wswineBundlePath]]) {
             [gptkCheckBoxButton setEnabled:NO];
             [gptkCheckBoxButton setState:YES];
@@ -971,10 +979,9 @@ NSFileManager *fm;
             if ([fm fileExistsAtPath:filePath]) [fm removeItemAtPath:filePath];
         }
         
-        //TODO: Should remove winetricks related files?
         for (NSString* fileToRemove in @[@"winetricks", @"winetricksInstalled.plist", @"winetricksHelpList.plist"])
         {
-            NSString* filePath = [NSString stringWithFormat:@"%@/Contents/Resources/%@",self.wineskinPath,fileToRemove];
+            NSString* filePath = [NSString stringWithFormat:@"%@/Contents/SharedSupport/%@",self.wrapperPath,fileToRemove];
             if ([fm fileExistsAtPath:filePath]) [fm removeItemAtPath:filePath];
         }
         
@@ -1187,7 +1194,7 @@ NSFileManager *fm;
 - (IBAction)winetricksRefreshButtonPressed:(id)sender
 {
     // Check for winetricks file, if missing download
-    if (![fm fileExistsAtPath:[NSString stringWithFormat:@"%@/Contents/Resources/winetricks",[[NSBundle mainBundle] bundlePath]]]) {
+    if (![fm fileExistsAtPath:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricks",self.wrapperPath]]) {
         [self winetricksUpdateButtonPressed:self];
     }
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -1222,7 +1229,7 @@ NSFileManager *fm;
 - (IBAction)winetricksUpdateButtonPressed:(id)sender
 {
     // Only show Warning if winetricks is already installed
-    if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/Contents/Resources/winetricks",[[NSBundle mainBundle] bundlePath]]]) {
+    if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricks",self.wrapperPath]]) {
         //confirm update
         if ([NSAlert showBooleanAlertOfType:NSAlertTypeWarning withMessage:[NSString stringWithFormat:@"Are you sure you want to update to the latest version of Winetricks?"] withDefault:NO] == false) {
             return;
@@ -1245,13 +1252,13 @@ NSFileManager *fm;
 		return;
 	}
 
-    NSString* winetricksFilePath = [NSString stringWithFormat:@"%@/Contents/Resources/winetricks",[[NSBundle mainBundle] bundlePath]];
+    NSString* winetricksFilePath = [NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricks",self.wrapperPath];
 	[fm removeItemAtPath:winetricksFilePath];
 	[newVersion writeToFile:winetricksFilePath atomically:YES];
 	[self systemCommand:@"/bin/chmod" withArgs:[NSArray arrayWithObjects:@"777",winetricksFilePath,nil]];
 
 	//remove old list of packages and descriptions (it'll be rebuilt when refreshing the list)
-	[fm removeItemAtPath:[NSString stringWithFormat:@"%@/Contents/Resources/winetricksHelpList.plist",[[NSBundle mainBundle] bundlePath]]];
+    [fm removeItemAtPath:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricksHelpList.plist",self.wrapperPath]];
 
 	//refresh window
 	[self winetricksRefreshButtonPressed:self];
@@ -1415,7 +1422,7 @@ NSFileManager *fm;
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 		// List of all winetricks
-		list = [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/Resources/winetricksHelpList.plist",[[NSBundle mainBundle] bundlePath]]];
+		list = [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricksHelpList.plist",self.wrapperPath]];
 		BOOL needsListRebuild = NO;
 		if (list == nil) {
             // This only happens in case of a winetricks update
@@ -1443,7 +1450,7 @@ NSFileManager *fm;
 		}
 		if (needsListRebuild)
 		{ // Invalid or missing list.  Rebuild it
-            NSArray *winetricksFile = [[NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/Resources/winetricks",[[NSBundle mainBundle] bundlePath]] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@"\n"];
+            NSArray *winetricksFile = [[NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricks",self.wrapperPath] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@"\n"];
             NSMutableArray *linesToCheck = [[NSMutableArray alloc] init];
             NSArray *winetricksCategories;
             int i;
@@ -1510,11 +1517,11 @@ NSFileManager *fm;
 				if ([winetricksThisCategoryList count] == 0) continue;
 				[list setValue:winetricksThisCategoryList forKey:category];
 			}
-			[list writeToFile:[NSString stringWithFormat:@"%@/Contents/Resources/winetricksHelpList.plist",[[NSBundle mainBundle] bundlePath]] atomically:YES];
+			[list writeToFile:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricksHelpList.plist",self.wrapperPath] atomically:YES];
 		}
 
         //Fix the permissions just to be safe here
-        NSString* winetricksHelpList = [NSString stringWithFormat:@"%@/Contents/Resources/winetricksHelpList.plist",[[NSBundle mainBundle] bundlePath]];
+        NSString* winetricksHelpList = [NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricksHelpList.plist",self.wrapperPath];
         [self systemCommand:@"/bin/chmod" withArgs:[NSArray arrayWithObjects:@"777",winetricksHelpList,nil]];
 
 		[self setWinetricksList:list];
@@ -1576,7 +1583,7 @@ NSFileManager *fm;
 		winetricksDone = YES;
 
 		// Remove installed and cached packages lists since they need to be rebuilt
-        [fm removeItemAtPath:[NSString stringWithFormat:@"%@/Contents/Resources/winetricksInstalled.plist",[[NSBundle mainBundle] bundlePath]]];
+        [fm removeItemAtPath:[NSString stringWithFormat:@"%@/Contents/SharedSupport/winetricksInstalled.plist",[[NSBundle mainBundle] bundlePath]]];
         [fm removeItemAtPath:[NSString stringWithFormat:@"%@/winetricks/winetricksCached.plist", [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0]]];
 		usleep(500000); // Wait just a little, to make sure logs aren't overwritten before updateWinetrickOutput is done
 

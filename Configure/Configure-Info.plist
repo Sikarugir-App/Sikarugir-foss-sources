@@ -2,6 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to Bluetooth</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to Bluetooth</string>
+	<key>NSCameraUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to the camera</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to your Desktop</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to your Documents</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to your Downloads</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to the Microphone</string>
+	<key>NSNetworkVolumesUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to Network Volumes</string>
+	<key>NSRemovableVolumesUsageDescription</key>
+	<string>${EXECUTABLE_NAME} needs access to Removable Volumes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
